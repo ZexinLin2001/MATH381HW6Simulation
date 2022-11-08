@@ -1,2 +1,4 @@
 # MATH381HW6Simulation
-This is repo for MATH381HW6 Monte Carlo Simulation
+This is homework 6 repository for MATH381 Discrete Mathematical Modeling
+
+Collaborator: Minhao Zhang, Zexin Lin

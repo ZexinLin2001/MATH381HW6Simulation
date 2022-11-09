@@ -1,11 +1,12 @@
 import java.util.List;
+import java.util.Queue;
 
 public class Pos {
     private char color;
-    private List<Plane> planes;
-    private Pos canJumpTo;
+    private Queue<Plane> planes;
+    private int canJumpTo;
 
-    public Pos(char color, List<Plane> planes, Pos canJumpTo) {
+    public Pos(char color, Queue<Plane> planes, int canJumpTo) {
         this.color = color;
         this.planes = planes;
         this.canJumpTo = canJumpTo;
@@ -15,15 +16,15 @@ public class Pos {
         return color;
     }
 
-    public List<Plane> getPlanes() {
+    public Queue<Plane> getPlanes() {
         return planes;
     }
 
-    public Pos getCanJumpTo() {
+    public int getCanJumpTo() {
         return canJumpTo;
     }
 
-    public void setPlanes(List<Plane> planes) {
+    public void setPlanes(Queue<Plane> planes) {
         this.planes = planes;
     }
 }

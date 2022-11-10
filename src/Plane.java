@@ -17,6 +17,14 @@ public class Plane {
         return position;
     }
 
+    public int getColor() {
+        return color;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
     /**
      *
      * @param num
@@ -65,6 +73,6 @@ public class Plane {
                 nextPosition = nextPosition % 59 + 7;
             }
         }
-
+        return 0;
     }
 }

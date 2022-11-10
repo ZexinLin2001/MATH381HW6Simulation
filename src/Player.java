@@ -1,15 +1,19 @@
+import java.util.List;
+
 public class Player {
     private String name;
-    private char color;
+    private int color;
     private int strategy;
+    private List<Plane> planes;
 
-    public Player(String name, char color, int strategy) {
+    public Player(String name, int color, int strategy, List<Plane> planes) {
         this.name = name;
         this.color = color;
         this.strategy = strategy;
+        this.planes = planes;
     }
 
-    public char getColor() {
+    public int getColor() {
         return color;
     }
 
@@ -17,12 +21,16 @@ public class Player {
         return strategy;
     }
 
-    public int move() {
+    public int move(int num, List<Plane> planes) {
         switch (strategy) {
             case 1:
                 return s1Move();
         }
         return -1;
+    }
+
+    public List<Plane> getPlanes() {
+        return planes;
     }
 
     private int s1Move() {

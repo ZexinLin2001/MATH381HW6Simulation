@@ -57,4 +57,7 @@ public class Game {
         return r.nextInt(6) + 1;
     }
 
+    public List<Player> getPlayers() {
+        return players;
+    }
 }

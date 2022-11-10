@@ -65,6 +65,6 @@ public class Plane {
                 nextPosition = nextPosition % 59 + 7;
             }
         }
-
+        return 0;
     }
 }

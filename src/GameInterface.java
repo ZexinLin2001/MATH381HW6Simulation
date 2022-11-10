@@ -3,8 +3,7 @@ import java.util.HashSet;
 import java.util.List;
 
 public class GameInterface {
-
-    private int[][] board = {
+    private static final int[][] BOARD = {
             {-2, -2, -2, -2, -1, -1, -1, -1, -1, -1, -1, -1, 6, -2, -2, -2, -2},
             {-2, 1, 1, -2, -1, 27, 28, 29, 30, 31, 32, 33, -1, -2, 2, 2, -2},
             {-2, 1, 1, -2, -1, 26, -1, -1, 62, -1, -1, 34, -1, -2, 2, 2, -2},
@@ -24,21 +23,19 @@ public class GameInterface {
             {-2, -2, -2, -2, 4, -1, -1, -1, -1, -1, -1, -1, -1, -2, -2, -2, -2},
     };
 
-    public GameInterface() {
+    public static void main(String[] args) {
         Game g = new Game(4);
         List<Player> players = g.getPlayers();
         List<Plane> planes = new ArrayList<>();
-
         for (Player p : players) {
             planes.addAll(p.getPlanes());
         }
-
         planes.get(0).setPosition(30);
 
         System.out.println(printBoard(planes));
     }
 
-    public String printBoard(List<Plane> planes) {
+    public static String printBoard(List<Plane> planes) {
 
         HashSet<Integer> positions = new HashSet<>();
 
@@ -50,7 +47,6 @@ public class GameInterface {
             }
         }
 
-
         String[] colorArray = {"B  ", "Y  ", "G  ", "R  "};
 
         String res = "";
@@ -58,18 +54,18 @@ public class GameInterface {
         for (int i = 0; i < 17; i++) {
             for (int j = 0; j < 17; j++) {
                 // if this should be a plane
-                if (positions.contains(board[i][j])) {
+                if (positions.contains(BOARD[i][j])) {
                     // in the base
-                    if (board[i][j] < 4) {
-                        res += colorArray[board[i][j] % 4];;
-                        colorInBase[board[i][j] % 4]--;
-                        if (colorInBase[board[i][j] % 4] == 0) {
-                            positions.remove(board[i][j]);
+                    if (BOARD[i][j] < 4) {
+                        res += colorArray[BOARD[i][j] % 4];;
+                        colorInBase[BOARD[i][j] % 4]--;
+                        if (colorInBase[BOARD[i][j] % 4] == 0) {
+                            positions.remove(BOARD[i][j]);
                         }
                     } else {
                         // find which plane is on this spot
                         for (Plane p : planes) {
-                            if (p.getPosition() == board[i][j]) {
+                            if (p.getPosition() == BOARD[i][j]) {
                                 res += colorArray[p.getColor()];
                             }
                         }
@@ -77,15 +73,15 @@ public class GameInterface {
                 }
                 // this is for generic board
                 else {
-                    if (board[i][j] == -2) {
+                    if (BOARD[i][j] == -2) {
                         res += "*  ";
-                    } else if (board[i][j] == -1) {
+                    } else if (BOARD[i][j] == -1) {
                         res += "   ";
-                    } else if (board[i][j] == -3) {
+                    } else if (BOARD[i][j] == -3) {
                         res += "   ";
-                    } else if (board[i][j] < 4) {
+                    } else if (BOARD[i][j] < 4) {
                         res += "   ";
-                    } else if (3 < board[i][j] && board[i][j] < 8) {
+                    } else if (3 < BOARD[i][j] && BOARD[i][j] < 8) {
                         res += "L  ";
                     } else {
                         res += "□  ";
@@ -95,9 +91,5 @@ public class GameInterface {
             res += "\n";
         }
         return res;
-    }
-
-    public static void main(String[] args) {
-        GameInterface g = new GameInterface();
     }
 }

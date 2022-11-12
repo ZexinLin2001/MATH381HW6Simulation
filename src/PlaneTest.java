@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlaneTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IllegalAccessException {
         List<Boolean> res = testBase();
         res.addAll(testLaunchPoint());
         res.addAll(testGeneralCase());
@@ -14,7 +14,7 @@ public class PlaneTest {
         System.out.println(pass);
     }
 
-    public static List<Boolean> testBase() {
+    public static List<Boolean> testBase() throws IllegalAccessException {
         List<Boolean> res = new ArrayList<>();
         Plane p0 = new Plane(0, 0, 0);
         Plane p1 = new Plane(0, 1, 1);
@@ -54,7 +54,7 @@ public class PlaneTest {
     }
 
 
-    public static List<Boolean> testLaunchPoint() {
+    public static List<Boolean> testLaunchPoint() throws IllegalAccessException {
         List<Boolean> res = new ArrayList<>();
         Plane p0 = new Plane(0, 4, 0);
         Plane p1 = new Plane(0, 5, 1);
@@ -70,13 +70,19 @@ public class PlaneTest {
     }
 
 
-    public static List<Boolean> testGeneralCase() {
+    public static List<Boolean> testGeneralCase() throws IllegalAccessException {
         List<Boolean> res = new ArrayList<>();
         Plane p0 = new Plane(0, 13, 0);
         Plane p1 = new Plane(0, 45, 1);
+        Plane p2 = new Plane(0, 56, 2);
+
+        System.out.println(p0.canMoveTo(4));
+        System.out.println(p1.canMoveTo(5));
+        System.out.println(p2.canMoveTo(5));
 
         res.add(17 == p0.canMoveTo(4));
         res.add(50 == p1.canMoveTo(5));
+        res.add(9 == p2.canMoveTo(5));
 
         System.out.println(res);
         return res;

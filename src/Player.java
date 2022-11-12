@@ -21,16 +21,16 @@ public class Player {
         return strategy;
     }
 
+    public List<Plane> getPlanes() {
+        return planes;
+    }
+
     public int move(int num, List<Plane> planes) {
         switch (strategy) {
             case 1:
                 return s1Move();
         }
         return -1;
-    }
-
-    public List<Plane> getPlanes() {
-        return planes;
     }
 
     private int s1Move() {

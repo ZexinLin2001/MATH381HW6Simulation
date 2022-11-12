@@ -21,7 +21,7 @@ public class Game {
         for (int i = 0; i < playerCount; i++) {
             List<Plane> planes = new ArrayList<>();
             for (int j = 0; j < 4; j++) {
-                planes.add(new Plane(j, i, i));
+                planes.add(new Plane(j, i, i, false));
             }
             players.add(new Player("P" + i, colors[i], 1, planes));
         }

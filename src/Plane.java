@@ -2,11 +2,13 @@ public class Plane {
     private int index;
     private int position;
     private int color;
+    private boolean end;
 
-    public Plane(int index, int position, int color) {
+    public Plane(int index, int position, int color, boolean end) {
         this.index = index;
         this.position = position;
         this.color = color;
+        this.end = end;
     }
 
     public int getIndex() {
@@ -31,7 +33,7 @@ public class Plane {
      * @param  num: the number of dice rolled
      * @return int value: possible location can move to, otherwise return -1
      */
-    public int canMoveTo(int num) {
+    public int canMoveTo(int num) throws IllegalAccessException {
         int nextPosition;
         // if the plane currently in the base at position 0, 1, 2, 3
         if (position < 4) {
@@ -59,11 +61,12 @@ public class Plane {
         // normal board situation in board position 8, 9, 10, ... , 59
         else if (position < 60) {
             nextPosition = position + num; //next position is current position plus the diced number
-            // check the color, may need to go to landing arrow
+            // check the color, may need to go to landing arrow 到达最终长箭头出口
+            //蓝色较为特殊单独讨论
             if (color == 0 && nextPosition > 56) {
                 int excess = nextPosition - 56;
                 nextPosition = 56 + excess * 4;
-            }
+            }//黄绿蓝general条件
             else if ((color == 1 && nextPosition > 17) ||
                     (color == 2 && nextPosition > 30) ||
                     (color == 3 && nextPosition > 43)) {
@@ -92,7 +95,27 @@ public class Plane {
             if (nextPosition > 59) {
                 nextPosition = nextPosition % 59 + 7;
             }
+        } else if (position < 84){ //此时都已经进入landing的长箭头 index 在60和84之间
+            nextPosition = position + (num * 4);
+            //结束条件->送入机库
+            if ((color == 0 && nextPosition == 80)||
+               (color == 1 && nextPosition == 81)||
+               (color == 2 && nextPosition == 82)||
+               (color == 3 && nextPosition == 83)) {
+                nextPosition += 4; //标志结束
+                end = true; // 这架飞机结束了
+             // 超出了需要退回
+            } else if ((color == 0 && nextPosition > 80)||
+                    (color == 1 && nextPosition > 81)||
+                    (color == 2 && nextPosition > 82)||
+                    (color == 3 && nextPosition > 83)) {
+                         nextPosition -= nextPosition - (color + 80);//减去超出部分（超出部分只有可能是4的倍数）
+            }
+            //正常触及到下一个位置-游戏继续
+
+        } else {
+            throw new IllegalAccessException("Program Error occurred");
         }
-        return 0;
+        return nextPosition;
     }
 }

@@ -72,7 +72,7 @@ public class Plane {
                     (color == 2 && nextPosition > 30) && !(position >= 33)||
                     (color == 3 && nextPosition > 43) && !(position >= 46)) {
                 int excess = nextPosition - ((color - 1) * 13 + 17); //nextPosition - excess position
-                nextPosition = (color - 1) * 13 + 17 + excess * 4;
+                nextPosition = 56 + color + excess * 4;
                 return nextPosition;
             }
             //jump from same color spot to next same color spot
@@ -111,7 +111,7 @@ public class Plane {
                     (color == 1 && nextPosition > 81)||
                     (color == 2 && nextPosition > 82)||
                     (color == 3 && nextPosition > 83)) {
-                         nextPosition -= nextPosition - (color + 80);//减去超出部分（超出部分只有可能是4的倍数）
+                         nextPosition -= 2* (nextPosition - (color + 80)); //减去超出部分（超出部分只有可能是4的倍数）
             }
             //正常触及到下一个位置-游戏继续
 

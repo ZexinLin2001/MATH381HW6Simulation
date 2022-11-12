@@ -7,6 +7,7 @@ public class PlaneTest {
         res.addAll(testLaunchPoint());
         res.addAll(testGeneralCase());
         res.addAll(testTurnIntoLandingArrow());
+        res.addAll(testHitAndReturnLandingArrow());
         boolean pass = true;
         for (boolean b : res) {
             pass = pass && b;
@@ -93,7 +94,7 @@ public class PlaneTest {
         Plane p0 = new Plane(0, 55, 0);
         Plane p1 = new Plane(0, 14, 1);
         Plane p2 = new Plane(0, 30, 2);
-        Plane p3 = new Plane(0, 39, 2);
+        Plane p3 = new Plane(0, 39, 3);
 
         System.out.println(p0.canMoveTo(2));
         System.out.println(p1.canMoveTo(6));
@@ -104,6 +105,27 @@ public class PlaneTest {
         res.add(69 == p1.canMoveTo(6));
         res.add(82 == p2.canMoveTo(6));
         res.add(63 == p3.canMoveTo(5));
+
+        System.out.println(res);
+        return res;
+    }
+
+    public static List<Boolean> testHitAndReturnLandingArrow() throws IllegalAccessException {
+        List<Boolean> res = new ArrayList<>();
+        Plane p0 = new Plane(0, 72, 0);
+        Plane p1 = new Plane(0, 73, 1);
+        Plane p2 = new Plane(0, 78, 2);
+        Plane p3 = new Plane(0, 63, 3);
+
+        System.out.println(p0.canMoveTo(3));
+        System.out.println(p1.canMoveTo(6));
+        System.out.println(p2.canMoveTo(2));
+        System.out.println(p3.canMoveTo(3));
+
+        res.add(76 == p0.canMoveTo(3));
+        res.add(65 == p1.canMoveTo(6));
+        res.add(78 == p2.canMoveTo(2));
+        res.add(75 == p3.canMoveTo(3));
 
         System.out.println(res);
         return res;

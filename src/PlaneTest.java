@@ -8,6 +8,8 @@ public class PlaneTest {
         res.addAll(testGeneralCase());
         res.addAll(testTurnIntoLandingArrow());
         res.addAll(testHitAndReturnLandingArrow());
+        res.addAll(testJump());
+        res.addAll(testFly());
 
         boolean pass = true;
         for (boolean b : res) {
@@ -15,6 +17,7 @@ public class PlaneTest {
         }
         System.out.println(pass);
     }
+
 
     public static List<Boolean> testBase() throws IllegalAccessException {
         List<Boolean> res = new ArrayList<>();
@@ -119,5 +122,52 @@ public class PlaneTest {
         System.out.println(res);
         return res;
     }
+
+
+    public static List<Boolean> testJump() throws IllegalAccessException {
+        List<Boolean> res = new ArrayList<>();
+        Plane p0 = new Plane(0, 59, 0);
+        Plane p1 = new Plane(0, 48, 1);
+        Plane p2 = new Plane(0, 57, 2);
+        Plane p3 = new Plane(0, 14, 3);
+
+        res.add(12 == p0.canMoveTo(1));
+        res.add(53 == p1.canMoveTo(1));
+        res.add(10 == p2.canMoveTo(1));
+        res.add(19 == p3.canMoveTo(1));
+
+        System.out.println(res);
+        return res;
+    }
+
+    public static List<Boolean> testFly() throws IllegalAccessException {
+        List<Boolean> res = new ArrayList<>();
+        Plane p0 = new Plane(0, 19, 0);
+        Plane p1 = new Plane(0, 31, 1);
+        Plane p2 = new Plane(0, 45, 2);
+        Plane p3 = new Plane(0, 58, 3);
+        Plane p4 = new Plane(0, 36, 0);
+        Plane p5 = new Plane(0, 49, 1);
+        Plane p6 = new Plane(0, 10, 2);
+        Plane p7 = new Plane(0, 23, 3);
+
+        res.add(36 == p0.canMoveTo(1));
+        res.add(40 == p0.canMoveTo(5));
+        res.add(49 == p1.canMoveTo(2));
+        res.add(53 == p1.canMoveTo(6));
+        res.add(10 == p2.canMoveTo(1));
+        res.add(14 == p2.canMoveTo(5));
+        res.add(23 == p3.canMoveTo(1));
+        res.add(17 == p3.canMoveTo(5));
+
+        res.add(37 == p4.canMoveTo(1));
+        res.add(50 == p5.canMoveTo(1));
+        res.add(11 == p6.canMoveTo(1));
+        res.add(24 == p7.canMoveTo(1));
+
+        System.out.println(res);
+        return res;
+    }
+
 
 }

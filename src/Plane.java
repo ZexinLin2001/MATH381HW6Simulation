@@ -48,7 +48,7 @@ public class Plane {
                 if (num == 1) { //if dice a one we move to position 59
                     nextPosition = 59;
                 } else {
-                    nextPosition = 7 + num; //第一个蓝色的格子为8， 前一个为59
+                    nextPosition = 6 + num; //第一个蓝色的格子为8， 前一个为59
                 }
             } //This is general case for YGR launch position Y = 4; G = 5; R = 6
               //color index Y = 1; G = 2; R = 3
@@ -70,17 +70,27 @@ public class Plane {
                 int excess = nextPosition - ((color - 1) * 13 + 17); //nextPosition - excess position
                 nextPosition = (color - 1) * 13 + 17 + excess * 4;
             }
-            //ensure not over the index
-            if (nextPosition > 59) {
-                nextPosition = nextPosition % 59 + 7;
+            //jump from same color spot to next same color spot
+            boolean jumped = false;
+            if ((nextPosition % 4 == color)) {
+                nextPosition += 4;
+                jumped = true;
             }
             //Fly from spot to the other update 11/10 11pm
             if ((color == 0 && nextPosition == 24)||
-                (color == 1 && nextPosition == 37)||
-                (color == 3 && nextPosition == 11)) {
+                    (color == 1 && nextPosition == 37)||
+                    (color == 3 && nextPosition == 11)||
+                    (color == 4 && nextPosition == 50)) {
                 nextPosition += 12;
-            } else if (color == 2 && nextPosition == 50){ //越界情况单独考虑
-                nextPosition = 10;
+            }
+            if (!jumped) {
+                nextPosition += 4;
+                jumped = true;
+            }
+
+            //ensure not over the index
+            if (nextPosition > 59) {
+                nextPosition = nextPosition % 59 + 7;
             }
         }
         return 0;

@@ -63,7 +63,7 @@ public class Plane {
             nextPosition = position + num; //next position is current position plus the diced number
             // check the color, may need to go to landing arrow 到达最终长箭头出口
             //蓝色较为特殊单独讨论
-            if (color == 0 && nextPosition >= 56) {
+            if (color == 0 && nextPosition > 56) {
                 int excess = nextPosition - 56;
                 nextPosition = 56 + excess * 4;
                 return nextPosition;

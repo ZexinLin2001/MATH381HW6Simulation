@@ -30,7 +30,6 @@ public class GameInterface {
         for (Player p : players) {
             planes.addAll(p.getPlanes());
         }
-        planes.get(0).setPosition(30);
 
         System.out.println(printBoard(planes));
     }
@@ -75,16 +74,13 @@ public class GameInterface {
                 else {
                     if (BOARD[i][j] == -2) {
                         res += "*  ";
-                    } else if (BOARD[i][j] == -1) {
-                        res += "   ";
-                    } else if (BOARD[i][j] == -3) {
-                        res += "   ";
                     } else if (BOARD[i][j] < 4) {
                         res += "   ";
                     } else if (3 < BOARD[i][j] && BOARD[i][j] < 8) {
                         res += "L  ";
                     } else {
-                        res += "□  ";
+//                        res += "□  ";
+                        res += "+  ";
                     }
                 }
             }

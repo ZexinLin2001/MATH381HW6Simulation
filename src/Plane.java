@@ -4,11 +4,11 @@ public class Plane {
     private int color;
     private boolean end;
 
-    public Plane(int index, int position, int color, boolean end) {
+    public Plane(int index, int position, int color) {
         this.index = index;
         this.position = position;
         this.color = color;
-        this.end = end;
+        this.end = false;
     }
 
     public int getIndex() {

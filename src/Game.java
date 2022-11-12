@@ -2,6 +2,7 @@ import java.util.*;
 
 public class Game {
     private List<Player> players;
+    private List<Plane> planes;
     private static final Random r = new Random();
 
     public Game(int playerCount) {
@@ -10,19 +11,16 @@ public class Game {
         }
         char[] colors = new char[]{'B', 'Y', 'G', 'R'};
 
-        // init planes
-        for (int i = 0; i < playerCount; i++) {
-
-        }
-
         // init players
         // P0 will always be the one we study
-        players = new ArrayList<>();
+        this.players = new ArrayList<>();
+        this.planes = new ArrayList<>();
         for (int i = 0; i < playerCount; i++) {
             List<Plane> planes = new ArrayList<>();
             for (int j = 0; j < 4; j++) {
-                planes.add(new Plane(j, i, i, false));
+                planes.add(new Plane(j, i, i));
             }
+            this.planes.addAll(planes);
             players.add(new Player("P" + i, colors[i], 1, planes));
         }
 

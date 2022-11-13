@@ -16,7 +16,7 @@ public class PlaneTest {
         for (boolean b : res) {
             pass = pass && b;
         }
-        System.out.println(pass);
+        System.out.println("ALL TEST CASES STATUS: " + pass);
     }
 
 
@@ -191,7 +191,6 @@ public class PlaneTest {
 
         res.add(25 == p1.canMoveTo(2, planes)[0]);
         res.add(22 == p1.canMoveTo(3, planes)[0]);
-
         System.out.println(res);
         return res;
     }

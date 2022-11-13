@@ -25,8 +25,17 @@ public class Plane {
         return color;
     }
 
-    public void setPosition(int position) {
-        this.position = position;
+    public boolean isEnd() {
+        return end;
+    }
+
+    public void move(int position) {
+        if (position >= 80) {
+            this.position = position + 4;
+            end = true;
+        } else {
+            this.position = position;
+        }
     }
 
     //Zexin Lin: last Update @ 11/10 11PM : Fly from one side of dot line to the other side
@@ -151,7 +160,7 @@ public class Plane {
                         (color == 2 && nextPosition == 82) ||
                         (color == 3 && nextPosition == 83)) {
 //                    nextPosition += 4; //标志结束
-                    end = true; // 这架飞机结束了
+//                    end = true; // 这架飞机结束了
                     score = 6;
                     // 超出了需要退回
                 } else if ((color == 0 && nextPosition > 80) ||

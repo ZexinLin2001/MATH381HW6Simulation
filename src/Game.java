@@ -1,5 +1,21 @@
 import java.util.*;
 
+// init positions
+//
+// index % 4 =
+//     - 0 => Blue
+//     - 1 => Yellow
+//     - 2 => Green
+//     - 3 => Red
+//
+// 0 - 3   => base
+// 4 - 7   => launch point
+// 8 - 59  => normal board
+// 60 - 83 => landing arrow
+// 84 - 87 => landing base, end of this plane
+//
+// index are counted clock-wise starting with blue, yellow, green, red
+// 8 represents the first blue position on the board after the blue plane has taken off
 public class Game {
     private List<Player> players;
     private List<Plane> planes;
@@ -23,26 +39,6 @@ public class Game {
             this.planes.addAll(planes);
             players.add(new Player("P" + i, colors[i], 1, planes));
         }
-
-
-        // init positions
-        //
-        // index % 4 =
-        //     - 0 => Blue
-        //     - 1 => Yellow
-        //     - 2 => Green
-        //     - 3 => Red
-        //
-        // 0 - 3   => base
-        // 4 - 7   => launch point
-        // 8 - 59  => normal board
-        // 60 - 83 => landing arrow
-        // 84 - 87 => landing base, end of this plane
-        //
-        // index are counted clock-wise starting with blue, yellow, green, red
-        // 8 represents the first blue position on the board after the blue plane has taken off
-
-
 
         // decide order of players
         Collections.shuffle(players);

@@ -62,6 +62,9 @@ public class Plane {
                 else {
                     nextPosition = 6 + 13 * color + num;
                 }
+                if (nextPosition % 4 == color) {
+                    nextPosition += 4;
+                }
 
                 // calculate the score
                 if (num == 2 || num == 6) {

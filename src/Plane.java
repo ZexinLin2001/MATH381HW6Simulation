@@ -142,7 +142,7 @@ public class Plane {
                         (color == 1 && nextPosition == 81) ||
                         (color == 2 && nextPosition == 82) ||
                         (color == 3 && nextPosition == 83)) {
-                    nextPosition += 4; //标志结束
+//                    nextPosition += 4; //标志结束
                     end = true; // 这架飞机结束了
                     score = 6;
                     // 超出了需要退回
@@ -157,7 +157,11 @@ public class Plane {
                         score = 1;
                     }
                 } else {
-                    score = 1;
+                    if (nextPosition >= 68 && nextPosition <= 71) {
+                        score = 0;
+                    } else {
+                        score = 1;
+                    }
                 }
                 //正常触及到下一个位置-游戏继续
             } else {

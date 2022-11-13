@@ -17,6 +17,8 @@ public class PlaneScoreTest {
         }
         System.out.println("ALL TEST CASES STATUS: " + pass);
     }
+
+
     public static List<Boolean> testBaseScore() throws RuntimeException {
         List<Boolean> res = new ArrayList<>();
         List<Plane> planes = new ArrayList<>();
@@ -55,6 +57,8 @@ public class PlaneScoreTest {
         System.out.println(res);
         return res;
     }
+
+
     public static List<Boolean> testLaunchPointScore() throws RuntimeException {
         List<Boolean> res = new ArrayList<>();
         List<Plane> planes = new ArrayList<>();
@@ -69,6 +73,8 @@ public class PlaneScoreTest {
         System.out.println(res);
         return res;
     }
+
+
     public static List<Boolean> testGeneralCaseScore() throws RuntimeException {
         List<Boolean> res = new ArrayList<>();
         List<Plane> planes = new ArrayList<>();
@@ -82,6 +88,8 @@ public class PlaneScoreTest {
         System.out.println(res);
         return res;
     }
+
+
     public static List<Boolean> testTurnIntoLandingArrowScore() throws RuntimeException {
         List<Boolean> res = new ArrayList<>();
         List<Plane> planes = new ArrayList<>();
@@ -97,6 +105,8 @@ public class PlaneScoreTest {
         System.out.println(res);
         return res;
     }
+
+
     public static List<Boolean> testHitAndReturnLandingArrowScore() throws RuntimeException {
         List<Boolean> res = new ArrayList<>();
         List<Plane> planes = new ArrayList<>();
@@ -115,10 +125,11 @@ public class PlaneScoreTest {
         res.add(1 == p3.canMoveTo(3, planes)[1]);
         res.add(6 == p4.canMoveTo(2, planes)[1]);
         res.add(0 == p5.canMoveTo(1, planes)[1]);
-        System.out.println(p5.canMoveTo(1, planes)[1]);
         System.out.println(res);
         return res;
     }
+
+
     public static List<Boolean> testJumpScore() throws RuntimeException {
         List<Boolean> res = new ArrayList<>();
         List<Plane> planes = new ArrayList<>();
@@ -134,6 +145,8 @@ public class PlaneScoreTest {
         System.out.println(res);
         return res;
     }
+
+
     public static List<Boolean> testFlyScore() throws RuntimeException {
         List<Boolean> res = new ArrayList<>();
         List<Plane> planes = new ArrayList<>();
@@ -165,6 +178,8 @@ public class PlaneScoreTest {
         System.out.println(res);
         return res;
     }
+
+
     public static List<Boolean> testLaunchPointJumpScore() throws RuntimeException {
         List<Boolean> res = new ArrayList<>();
         List<Plane> planes = new ArrayList<>();

@@ -11,6 +11,7 @@ public class PlaneScoreTest {
         res.addAll(testJumpScore());
         res.addAll(testFlyScore());
         res.addAll(testLaunchPointJumpScore());
+        res.addAll(testLandingArrowJumpScore());
         boolean pass = true;
         for (boolean b : res) {
             pass = pass && b;
@@ -191,6 +192,27 @@ public class PlaneScoreTest {
 
         res.add(6 == p1.canMoveTo(2, planes)[1]);
         res.add(3 == p1.canMoveTo(3, planes)[1]);
+        System.out.println(res);
+        return res;
+    }
+    public static List<Boolean> testLandingArrowJumpScore() throws RuntimeException {
+        List<Boolean> res = new ArrayList<>();
+        List<Plane> planes = new ArrayList<>();
+        Plane p0 = new Plane(0, 55, 0);
+        Plane p1 = new Plane(0, 14, 1);
+        Plane p2 = new Plane(0, 28, 2);
+        Plane p3 = new Plane(0, 42, 3);
+
+        res.add(1 == p0.canMoveTo(1, planes)[1]);
+        res.add(3 == p1.canMoveTo(3, planes)[1]);
+        res.add(2 == p2.canMoveTo(2, planes)[1]);
+        res.add(1 == p3.canMoveTo(1, planes)[1]);
+
+        System.out.println(p0.canMoveTo(1, planes)[1]);
+        System.out.println(p1.canMoveTo(3, planes)[1]);
+        System.out.println(p2.canMoveTo(2, planes)[1]);
+        System.out.println(p3.canMoveTo(1, planes)[1]);
+
         System.out.println(res);
         return res;
     }

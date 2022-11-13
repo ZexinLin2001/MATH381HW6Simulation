@@ -118,7 +118,7 @@ public class Plane {
                                 (color == 2 && nextPosition == 50) ||
                                 (color == 3 && nextPosition == 11)) {
                             nextPosition += 12;
-                            score += 4;
+                            score += 12;
                         }
                     }
                     if (nextPosition > 59) {

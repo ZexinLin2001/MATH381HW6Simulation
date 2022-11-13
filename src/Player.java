@@ -34,10 +34,16 @@ public class Player {
     public int move(int num, List<Plane> planes) {
         switch (strategy) {
             case 0:
-                return s0Move(num, planes);
+                s0Move(num, planes);
             case 1:
-                return s1Move(num, planes);
+                s1Move(num, planes);
         }
+
+        boolean won = true;
+        for (Plane p : this.planes) {
+            won = won && p.isEnd();
+        }
+        this.won = won;
         return -1;
     }
 
@@ -47,12 +53,18 @@ public class Player {
         Map<Integer, Integer> possible_moves = new HashMap<>();
         Map<Integer, Integer> canMoveToLoc = new HashMap<>();
         for (int i = 0; i < this.planes.size(); i++) {
-            int loc = planes.get(i).canMoveTo(num, planes)[0];
-            if (loc >= 0 && !canMoveToLoc.containsKey(loc)) {
-                possible_moves.put(i, loc);
-                canMoveToLoc.put(loc, i);
+            System.out.println(this.planes.get(i).getPosition() + " -> " + this.planes.get(i).canMoveTo(num, planes)[0]);
+            if (!this.planes.get(i).isEnd()){
+                int loc = this.planes.get(i).canMoveTo(num, planes)[0];
+                if (loc >= 0 && !canMoveToLoc.containsKey(loc)) {
+                    possible_moves.put(i, loc);
+                    canMoveToLoc.put(loc, i);
+                }
             }
         }
+
+        System.out.println(possible_moves);
+        System.out.println(canMoveToLoc);
 
         if (possible_moves.size() == 0) {
             System.out.println("You rolled a " + num);
@@ -71,7 +83,7 @@ public class Player {
                 }
             }
 
-            planes.get(input).setPosition(possible_moves.get(input));
+            planes.get(input).move(possible_moves.get(input));
         }
         return -1;
     }
@@ -106,7 +118,7 @@ public class Player {
                 {-2, -2, -2, -2, 4, -1, -1, -1, -1, -1, -1, -1, -1, -2, -2, -2, -2},
         };
 
-        HashSet<Integer> positions = new HashSet<>();
+        Set<Integer> positions = new HashSet<>();
 
         int[] colorInBase = {0, 0, 0, 0};
         for (Plane p : planes) {
@@ -139,6 +151,7 @@ public class Player {
                         for (Plane p : planes) {
                             if (p.getPosition() == BOARD[i][j]) {
                                 res += colorArray[p.getColor()];
+                                break;
                             }
                         }
                     }

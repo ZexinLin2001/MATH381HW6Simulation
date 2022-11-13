@@ -50,12 +50,15 @@ public class Game {
         Collections.shuffle(players);
         Queue<Player> nextPLayerQueue = new LinkedList<>(players);
         int count = 0;
-        while (!nextPLayerQueue.peek().hasWon()) {
+        while (true) {
             count++;
             Player p = nextPLayerQueue.remove();
             nextPLayerQueue.add(p);
 
             p.move(roll(), planes);
+            if (p.hasWon()) {
+                break;
+            }
         }
         return count;
     }

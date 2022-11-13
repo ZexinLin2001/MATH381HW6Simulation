@@ -101,7 +101,6 @@ public class PlaneTest {
         res.add(69 == p1.canMoveTo(6));
         res.add(82 == p2.canMoveTo(6));
         res.add(63 == p3.canMoveTo(5));
-
         System.out.println(res);
         return res;
     }
@@ -136,6 +135,7 @@ public class PlaneTest {
         res.add(10 == p2.canMoveTo(1));
         res.add(19 == p3.canMoveTo(1));
 
+
         System.out.println(res);
         return res;
     }
@@ -145,7 +145,9 @@ public class PlaneTest {
         Plane p0 = new Plane(0, 19, 0);
         Plane p1 = new Plane(0, 31, 1);
         Plane p2 = new Plane(0, 45, 2);
+
         Plane p3 = new Plane(0, 58, 3);
+
         Plane p4 = new Plane(0, 36, 0);
         Plane p5 = new Plane(0, 49, 1);
         Plane p6 = new Plane(0, 10, 2);
@@ -155,10 +157,11 @@ public class PlaneTest {
         res.add(40 == p0.canMoveTo(5));
         res.add(49 == p1.canMoveTo(2));
         res.add(53 == p1.canMoveTo(6));
+
         res.add(10 == p2.canMoveTo(1));
         res.add(14 == p2.canMoveTo(5));
         res.add(23 == p3.canMoveTo(1));
-        res.add(17 == p3.canMoveTo(5));
+        res.add(27 == p3.canMoveTo(5));
 
         res.add(37 == p4.canMoveTo(1));
         res.add(50 == p5.canMoveTo(1));

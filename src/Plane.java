@@ -63,14 +63,14 @@ public class Plane {
             nextPosition = position + num; //next position is current position plus the diced number
             // check the color, may need to go to landing arrow 到达最终长箭头出口
             //蓝色较为特殊单独讨论
-            if (color == 0 && nextPosition > 56) {
+            if (color == 0 && nextPosition > 56 && position <= 56) {
                 int excess = nextPosition - 56;
                 nextPosition = 56 + excess * 4;
                 return nextPosition;
             }//黄绿蓝general条件
-            else if ((color == 1 && nextPosition > 17 && !(position >= 20)) ||
-                    (color == 2 && nextPosition > 30) && !(position >= 33)||
-                    (color == 3 && nextPosition > 43) && !(position >= 46)) {
+            else if ((color == 1 && nextPosition > 17 && position <= 17) ||
+                    (color == 2 && nextPosition > 30 && position <= 30) ||
+                    (color == 3 && nextPosition > 43 && position <= 43)){
                 int excess = nextPosition - ((color - 1) * 13 + 17); //nextPosition - excess position
                 nextPosition = 56 + color + excess * 4;
                 return nextPosition;
@@ -78,15 +78,32 @@ public class Plane {
             //jump from same color spot to next same color spot
             boolean jumped = false;
             if ((nextPosition % 4 == color)) {
+                if (nextPosition > 59) {
+                    nextPosition = nextPosition % 59 + 7;
+                }
+                if ((color == 0 && nextPosition == 24)||
+                        (color == 1 && nextPosition == 37)||
+                        (color == 2 && nextPosition == 50)||
+                        (color == 3 && nextPosition == 11)) {
+                    nextPosition += 12;
+                }
+                if (nextPosition > 59) {
+                    nextPosition = nextPosition % 59 + 7;
+                }
                 nextPosition += 4;
                 jumped = true;
+                if (nextPosition > 59) {
+                    nextPosition = nextPosition % 59 + 7;
+                }
+                if ((color == 0 && nextPosition == 24)||
+                        (color == 1 && nextPosition == 37)||
+                        (color == 2 && nextPosition == 50)||
+                        (color == 3 && nextPosition == 11)) {
+                    nextPosition += 12;
+                }
             }
-            //Fly from spot to the other update 11/10 11pm
-            if ((color == 0 && nextPosition == 24)||
-                    (color == 1 && nextPosition == 37)||
-                    (color == 3 && nextPosition == 11)||
-                    (color == 4 && nextPosition == 50)) {
-                nextPosition += 12;
+            if (nextPosition > 59) {
+                nextPosition = nextPosition % 59 + 7;
             }
             if ((!jumped) && (nextPosition % 4 == color)) {
                 nextPosition += 4;
@@ -97,6 +114,7 @@ public class Plane {
             if (nextPosition > 59) {
                 nextPosition = nextPosition % 59 + 7;
             }
+
         } else if (position < 84){ //此时都已经进入landing的长箭头 index 在60和84之间
             nextPosition = position + (num * 4);
             //结束条件->送入机库

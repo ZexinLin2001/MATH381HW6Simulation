@@ -21,7 +21,7 @@ public class Game {
     private List<Plane> planes;
     private static final Random r = new Random();
 
-    public Game(int playerCount) {
+    public Game(int playerCount, boolean humanPlaying) {
         if (playerCount <= 0 || playerCount > 4) {
             throw new IllegalArgumentException("Illegal number of players");
         }
@@ -37,14 +37,27 @@ public class Game {
                 planes.add(new Plane(j, i, i));
             }
             this.planes.addAll(planes);
-            players.add(new Player("P" + i, colors[i], 1, planes));
+            if (humanPlaying && i == 0) {
+                players.add(new Player("YOU" + i, colors[i], 0, planes));
+            } else {
+                players.add(new Player("P" + i, colors[i], 1, planes));
+            }
         }
+    }
 
+    public int run() {
         // decide order of players
         Collections.shuffle(players);
-        Queue nextPLayerQueue = new LinkedList<>(players);
+        Queue<Player> nextPLayerQueue = new LinkedList<>(players);
         int count = 0;
-        // the actual game
+        while (!nextPLayerQueue.peek().hasWon()) {
+            count++;
+            Player p = nextPLayerQueue.remove();
+            nextPLayerQueue.add(p);
+
+            p.move(roll(), planes);
+        }
+        return count;
     }
 
     private int roll() {

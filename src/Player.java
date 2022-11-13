@@ -1,17 +1,18 @@
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class Player {
     private String name;
     private int color;
     private int strategy;
     private List<Plane> planes;
+    private boolean won;
 
     public Player(String name, int color, int strategy, List<Plane> planes) {
         this.name = name;
         this.color = color;
         this.strategy = strategy;
         this.planes = planes;
+        this.won = false;
     }
 
     public int getColor() {
@@ -26,23 +27,56 @@ public class Player {
         return planes;
     }
 
+    public boolean hasWon() {
+        return won;
+    }
+
     public int move(int num, List<Plane> planes) {
         switch (strategy) {
             case 0:
-                return s0Move(planes);
+                return s0Move(num, planes);
             case 1:
-                return s1Move(planes);
+                return s1Move(num, planes);
         }
         return -1;
     }
 
-    private int s0Move(List<Plane> planes) {
-        System.out.println(printBoard(planes));
+    private int s0Move(int num, List<Plane> planes) {
+        Scanner console = new Scanner(System.in);
 
+        Map<Integer, Integer> possible_moves = new HashMap<>();
+        Map<Integer, Integer> canMoveToLoc = new HashMap<>();
+        for (int i = 0; i < this.planes.size(); i++) {
+            int loc = planes.get(i).canMoveTo(num, planes)[0];
+            if (loc >= 0 && !canMoveToLoc.containsKey(loc)) {
+                possible_moves.put(i, loc);
+                canMoveToLoc.put(loc, i);
+            }
+        }
+
+        if (possible_moves.size() == 0) {
+            System.out.println("You rolled a " + num);
+            System.out.println("You are unable to move");
+        } else {
+            int input = -1;
+            while (input < 0) {
+                System.out.println(printBoard(planes, canMoveToLoc));
+                System.out.println("You rolled a " + num);
+                System.out.print("Please choose which move you want to make (0, 1, 2, 3): ");
+                int temp = console.nextInt();
+                if (possible_moves.containsKey(temp)) {
+                    input = temp;
+                } else {
+                    System.out.println("Please only enter number that are shown in the board");
+                }
+            }
+
+            planes.get(input).setPosition(possible_moves.get(input));
+        }
         return -1;
     }
 
-    private int s1Move(List<Plane> planes) {
+    private int s1Move(int num, List<Plane> planes) {
         return -1;
     }
 
@@ -50,8 +84,7 @@ public class Player {
 
 
 
-
-    private static String printBoard(List<Plane> planes) {
+    private static String printBoard(List<Plane> planes, Map<Integer, Integer> canMoveToLoc) {
 
         final int[][] BOARD = {
                 {-2, -2, -2, -2, -1, -1, -1, -1, -1, -1, -1, -1, 6, -2, -2, -2, -2},
@@ -89,8 +122,11 @@ public class Player {
         // iterate over every index
         for (int i = 0; i < 17; i++) {
             for (int j = 0; j < 17; j++) {
+                if (canMoveToLoc.containsKey(BOARD[i][j])) {
+                    res = res + canMoveToLoc.get((BOARD[i][j])) + "  ";
+                }
                 // if this should be a plane
-                if (positions.contains(BOARD[i][j])) {
+                else if (positions.contains(BOARD[i][j])) {
                     // in the base
                     if (BOARD[i][j] < 4) {
                         res += colorArray[BOARD[i][j] % 4];;

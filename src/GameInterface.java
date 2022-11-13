@@ -24,7 +24,7 @@ public class GameInterface {
     };
 
     public static void main(String[] args) {
-        Game g = new Game(4);
+        Game g = new Game(4, false);
         List<Player> players = g.getPlayers();
         List<Plane> planes = new ArrayList<>();
         for (Player p : players) {

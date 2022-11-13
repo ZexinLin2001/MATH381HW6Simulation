@@ -11,7 +11,7 @@ public class PlaneNextPositionTest {
         res.addAll(testJump());
         res.addAll(testFly());
         res.addAll(testLaunchPointJump());
-        res.addAll(tesLandingArrowJump());
+        res.addAll(testLandingArrowJump());
         boolean pass = true;
         for (boolean b : res) {
             pass = pass && b;
@@ -106,6 +106,7 @@ public class PlaneNextPositionTest {
         res.add(69 == p1.canMoveTo(6, planes)[0]);
         res.add(82 == p2.canMoveTo(6, planes)[0]);
         res.add(63 == p3.canMoveTo(5, planes)[0]);
+        System.out.println(p2.canMoveTo(6, planes)[0]);
         System.out.println(res);
         return res;
     }
@@ -123,7 +124,6 @@ public class PlaneNextPositionTest {
         res.add(65 == p1.canMoveTo(6, planes)[0]);
         res.add(78 == p2.canMoveTo(2, planes)[0]);
         res.add(75 == p3.canMoveTo(3, planes)[0]);
-
         System.out.println(res);
         return res;
     }
@@ -196,7 +196,7 @@ public class PlaneNextPositionTest {
     }
 
 
-    public static List<Boolean> tesLandingArrowJump() throws RuntimeException {
+    public static List<Boolean> testLandingArrowJump() throws RuntimeException {
         List<Boolean> res = new ArrayList<>();
         List<Plane> planes = new ArrayList<>();
         Plane p0 = new Plane(0, 55, 0);
@@ -205,7 +205,7 @@ public class PlaneNextPositionTest {
         Plane p3 = new Plane(0, 42, 3);
 
         res.add(56 == p0.canMoveTo(1, planes)[0]);
-        res.add(9 == p1.canMoveTo(3, planes)[0]);
+        res.add(17 == p1.canMoveTo(3, planes)[0]);
         res.add(30 == p2.canMoveTo(2, planes)[0]);
         res.add(43 == p3.canMoveTo(1, planes)[0]);
 

@@ -55,7 +55,15 @@ public class Game {
             Player p = nextPLayerQueue.remove();
             nextPLayerQueue.add(p);
 
-            p.move(roll(), planes);
+            int num = roll();
+            while (num == 6) {
+                p.move(num, planes);
+                if (p.hasWon()) {
+                    break;
+                }
+                num = roll();
+            }
+            p.move(num, planes);
             if (p.hasWon()) {
                 break;
             }

@@ -53,7 +53,6 @@ public class Player {
         Map<Integer, Integer> possible_moves = new HashMap<>();
         Map<Integer, Integer> canMoveToLoc = new HashMap<>();
         for (int i = 0; i < this.planes.size(); i++) {
-            System.out.println(this.planes.get(i).getPosition() + " -> " + this.planes.get(i).canMoveTo(num, planes)[0]);
             if (!this.planes.get(i).isEnd()){
                 int loc = this.planes.get(i).canMoveTo(num, planes)[0];
                 if (loc >= 0 && !canMoveToLoc.containsKey(loc)) {
@@ -62,9 +61,6 @@ public class Player {
                 }
             }
         }
-
-        System.out.println(possible_moves);
-        System.out.println(canMoveToLoc);
 
         if (possible_moves.size() == 0) {
             System.out.println("You rolled a " + num);
@@ -75,11 +71,16 @@ public class Player {
                 System.out.println(printBoard(planes, canMoveToLoc));
                 System.out.println("You rolled a " + num);
                 System.out.print("Please choose which move you want to make (0, 1, 2, 3): ");
-                int temp = console.nextInt();
-                if (possible_moves.containsKey(temp)) {
-                    input = temp;
-                } else {
-                    System.out.println("Please only enter number that are shown in the board");
+                String temp = console.nextLine();
+                try{
+                    int tempInt = Integer.parseInt(temp);
+                    if (possible_moves.containsKey(tempInt)) {
+                        input = tempInt;
+                    } else {
+                        System.out.println("Please only enter number that are shown in the board");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Please enter only numbers");
                 }
             }
 
@@ -89,6 +90,26 @@ public class Player {
     }
 
     private int s1Move(int num, List<Plane> planes) {
+        Map<Integer, Integer> possible_moves = new HashMap<>();
+        Map<Integer, Integer> indexToPlane = new HashMap<>();
+        Random r = new Random();
+        int j = 0;
+        for (int i = 0; i < this.planes.size(); i++) {
+            if (!this.planes.get(i).isEnd()){
+                int loc = this.planes.get(i).canMoveTo(num, planes)[0];
+                if (loc >= 0) {
+                    possible_moves.put(j, loc);
+                    indexToPlane.put(j, i);
+                    j++;
+                }
+            }
+        }
+
+        if (possible_moves.size() > 0) {
+            int input = r.nextInt(possible_moves.size());
+            this.planes.get(indexToPlane.get(input));
+            this.planes.get(indexToPlane.get(input)).move(possible_moves.get(input));
+        }
         return -1;
     }
 

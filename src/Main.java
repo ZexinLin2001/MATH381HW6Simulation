@@ -2,8 +2,12 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        single_1M_sim();
+    }
+
+    private static void single_1M_sim() {
         try {
-            FileWriter myWriter = new FileWriter("data/single-s1.csv");
+            FileWriter myWriter = new FileWriter("data/single-s3.csv");
             long startTime = System.nanoTime();
             for (int i = 0; i < 1000000; i++) {
                 Game g = new Game(1, false);
@@ -22,7 +26,8 @@ public class Main {
             e.printStackTrace();
         }
 
-        Runtime rt = Runtime.getRuntime();
-        Process pr = rt.exec("python ./dataProcessing/histogram.py");
+//        Runtime rt = Runtime.getRuntime();
+//        Process pr = rt.exec("python ./dataProcessing/histogram.py");
     }
+
 }

@@ -51,7 +51,7 @@ public class Plane {
             if (position < 4) {
                 if (num == 6) {
                     nextPosition = position + 4;
-                    score = 6;
+                    score = 11;
                 } else { //不需要出动飞机 return：-1
                     nextPosition = -1;
                     score = 0;

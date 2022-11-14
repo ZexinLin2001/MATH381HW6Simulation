@@ -2,7 +2,13 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        single_1M_sim();
+//        single_1M_sim();
+        play();
+    }
+
+    private static void play() {
+        Game g = new Game(1, true);
+        g.run();
     }
 
     private static void single_1M_sim() {

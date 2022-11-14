@@ -19,7 +19,6 @@ import java.util.*;
 public class Game {
     private List<Player> players;
     private List<Plane> planes;
-    private static final Random r = new Random();
 
     public Game(int playerCount, boolean humanPlaying) {
         if (playerCount <= 0 || playerCount > 4) {
@@ -40,7 +39,7 @@ public class Game {
             if (humanPlaying && i == 0) {
                 players.add(new Player("YOU" + i, colors[i], 0, planes));
             } else {
-                players.add(new Player("P" + i, colors[i], 1, planes));
+                players.add(new Player("P" + i, colors[i], 3, planes));
             }
         }
     }
@@ -72,6 +71,7 @@ public class Game {
     }
 
     private int roll() {
+        Random r = new Random();
         return r.nextInt(6) + 1;
     }
 

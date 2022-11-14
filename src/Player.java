@@ -35,8 +35,16 @@ public class Player {
         switch (strategy) {
             case 0:
                 s0Move(num, planes);
+                break;
             case 1:
                 s1Move(num, planes);
+                break;
+            case 2:
+                s2Move(num, planes);
+                break;
+            case 3:
+                s3Move(num, planes);
+                break;
         }
 
         boolean won = true;
@@ -113,9 +121,71 @@ public class Player {
         return -1;
     }
 
+    private int s2Move(int num, List<Plane> planes) {
+        Map<Integer, Integer> possible_moves = new HashMap<>();
+        Map<Integer, Integer> indexToPlane = new HashMap<>();
+        Random r = new Random();
+        int j = 0;
+        for (int i = 0; i < this.planes.size(); i++) {
+            if (!this.planes.get(i).isEnd()){
+                int loc = this.planes.get(i).canMoveTo(num, planes)[0];
+                if (loc >= 0) {
+                    possible_moves.put(j, loc);
+                    indexToPlane.put(j, i);
+                    j++;
+                }
+            }
+        }
 
+        if (possible_moves.size() > 0) {
+            Set<Integer> temp = new HashSet<>();
+            temp.add(4); temp.add(5); temp.add(6); temp.add(7);
+            for (int key : possible_moves.keySet()) {
+                if (temp.contains(possible_moves.get(key))) {
+                    this.planes.get(indexToPlane.get(key)).move(possible_moves.get(key));
+                    return -1;
+                }
+            }
+            int input = r.nextInt(possible_moves.size());
+            this.planes.get(indexToPlane.get(input)).move(possible_moves.get(input));
+        }
+        return -1;
+    }
 
+    private int s3Move(int num, List<Plane> planes) {
+        Map<Integer, Integer> possible_moves = new HashMap<>();
+        Map<Integer, Integer> indexToPlane = new HashMap<>();
+        Map<Integer, Integer> move_scores = new HashMap<>();
+        Random r = new Random();
+        int j = 0;
+        for (int i = 0; i < this.planes.size(); i++) {
+            if (!this.planes.get(i).isEnd()){
+                int[] res = this.planes.get(i).canMoveTo(num, planes);
+                if (res[0] >= 0) {
+                    possible_moves.put(j, res[0]);
+                    indexToPlane.put(j, i);
+                    move_scores.put(j, res[1]);
+                    j++;
+                }
+            }
+        }
 
+        if (possible_moves.size() > 0) {
+            int max_score = -2;
+            for (int s : move_scores.values()) {
+                if (s > max_score) {
+                    max_score = s;
+                }
+            }
+            for (int key : possible_moves.keySet()) {
+                if (move_scores.get(key) == max_score) {
+                    this.planes.get(indexToPlane.get(key)).move(possible_moves.get(key));
+                    return -1;
+                }
+            }
+        }
+        return -1;
+    }
 
     private static String printBoard(List<Plane> planes, Map<Integer, Integer> canMoveToLoc) {
 

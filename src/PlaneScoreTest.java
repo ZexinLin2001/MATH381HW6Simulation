@@ -33,28 +33,28 @@ public class PlaneScoreTest {
         res.add(0 == p0.canMoveTo(3, planes)[1]);
         res.add(0 == p0.canMoveTo(4, planes)[1]);
         res.add(0 == p0.canMoveTo(5, planes)[1]);
-        res.add(6 == p0.canMoveTo(6, planes)[1]);
+        res.add(11 == p0.canMoveTo(6, planes)[1]);
 
         res.add(0 == p1.canMoveTo(1, planes)[1]);
         res.add(0 == p1.canMoveTo(2, planes)[1]);
         res.add(0 == p1.canMoveTo(3, planes)[1]);
         res.add(0 == p1.canMoveTo(4, planes)[1]);
         res.add(0 == p1.canMoveTo(5, planes)[1]);
-        res.add(6 == p1.canMoveTo(6, planes)[1]);
+        res.add(11 == p1.canMoveTo(6, planes)[1]);
 
         res.add(0 == p2.canMoveTo(1, planes)[1]);
         res.add(0 == p2.canMoveTo(2, planes)[1]);
         res.add(0 == p2.canMoveTo(3, planes)[1]);
         res.add(0 == p2.canMoveTo(4, planes)[1]);
         res.add(0 == p2.canMoveTo(5, planes)[1]);
-        res.add(6 == p2.canMoveTo(6, planes)[1]);
+        res.add(11 == p2.canMoveTo(6, planes)[1]);
 
         res.add(0 == p3.canMoveTo(1, planes)[1]);
         res.add(0 == p3.canMoveTo(2, planes)[1]);
         res.add(0 == p3.canMoveTo(3, planes)[1]);
         res.add(0 == p3.canMoveTo(4, planes)[1]);
         res.add(0 == p3.canMoveTo(5, planes)[1]);
-        res.add(6 == p3.canMoveTo(6, planes)[1]);
+        res.add(11 == p3.canMoveTo(6, planes)[1]);
         System.out.println(res);
         return res;
     }
@@ -207,11 +207,6 @@ public class PlaneScoreTest {
         res.add(3 == p1.canMoveTo(3, planes)[1]);
         res.add(2 == p2.canMoveTo(2, planes)[1]);
         res.add(1 == p3.canMoveTo(1, planes)[1]);
-
-        System.out.println(p0.canMoveTo(1, planes)[1]);
-        System.out.println(p1.canMoveTo(3, planes)[1]);
-        System.out.println(p2.canMoveTo(2, planes)[1]);
-        System.out.println(p3.canMoveTo(1, planes)[1]);
 
         System.out.println(res);
         return res;

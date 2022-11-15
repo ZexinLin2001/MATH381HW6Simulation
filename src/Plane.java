@@ -1,4 +1,5 @@
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.List;
 
 public class Plane {
@@ -34,23 +35,36 @@ public class Plane {
         this.position = position;
     }
 
-    public void move(int num, List<Plane> planes) {
-        if (position + 4 * num == 80 + color) { // 到达预定位置，飞机消失
+    public void sentBack(List<Plane> planes, int nextPosition) {    
+        for (Plane plane : planes) {
+            if ((plane.getPosition() == nextPosition) && (plane.getColor() != color)) {
+                plane.setPosition(plane.getColor());
+            }
+        }
+    }
+    public void move (int num, List<Plane> planes) {
+        if (position + 4 * num == 80 + color) {
             this.position = position + 8;
             end = true;
-        } else { // 继续游戏
+        } else {
             HashSet<Integer> planeHashSet = new HashSet<>();
-            for (int i = 0; i < planes.size(); i++) {
-                planeHashSet.add(planes.get(i).getPosition()); //HashSet包含所有的飞机的位置数据，无重复
+            for (Plane plane : planes) {
+                planeHashSet.add(plane.getPosition());
             }
             if (!end) {
                 int nextPosition;
                 // if the plane currently in the base at position 0, 1, 2, 3
-                if (position < 4) { //不需要寻找其他飞机位置，base以及launch point不会出现attack情况
+                if (position < 4) {
                     if (num == 6) {
                         nextPosition = position + 4;
+                        if (planeHashSet.contains(nextPosition)) {
+                            sentBack(planes, nextPosition);
+                        }
                     } else { //不需要出动飞机 return：-1
                         nextPosition = position;
+                        if (planeHashSet.contains(nextPosition)) {
+                            sentBack(planes, nextPosition);
+                        }
                     }
                 }
                 //if the plane currently in launch point at position 4, 5, 6, 7
@@ -59,60 +73,39 @@ public class Plane {
                     if (position == 4) {
                         if (num == 1) { //if dice a one we move to position 59
                             nextPosition = 59;
-                            if(planeHashSet.contains(nextPosition)){
-                                for (Plane plane : planes) {
-                                    if (plane.getPosition() == nextPosition && plane.getColor() != color) {
-                                        plane.setPosition(plane.getColor());
-                                    }
-                                }
-                            }
                         } else {
                             nextPosition = 6 + num; //第一个蓝色的格子为8， 前一个为59
-                            if(planeHashSet.contains(nextPosition)){
-                                for (Plane plane : planes) {
-                                    if (plane.getPosition() == nextPosition && plane.getColor() != color) {
-                                        plane.setPosition(plane.getColor());
-                                    }
-                                }
-                            }
                         }
                     } //This is general case for YGR launch position Y = 4; G = 5; R = 6
                     //color index Y = 1; G = 2; R = 3
                     else {
                         nextPosition = 6 + 13 * color + num;
-                        if(planeHashSet.contains(nextPosition)){
-                            for (Plane plane : planes) {
-                                if (plane.getPosition() == nextPosition && plane.getColor() != color) {
-                                    plane.setPosition(plane.getColor());
-                                }
-                            }
-                        }
+                    }
+                    if (planeHashSet.contains(nextPosition)) {
+                        sentBack(planes, nextPosition);
                     }
                     if (nextPosition % 4 == color) {
                         nextPosition += 4;
-                        if(planeHashSet.contains(nextPosition)){
-                            for (Plane plane : planes) {
-                                if (plane.getPosition() == nextPosition && plane.getColor() != color) {
-                                    plane.setPosition(plane.getColor());
-                                }
-                            }
-                        }
                     }
-
                 }
                 // normal board situation in board position 8, 9, 10, ... , 59
                 else if (position < 60) {
                     nextPosition = position + num; //next position is current position plus the diced number
+                    if (planeHashSet.contains(nextPosition)) {
+                        sentBack(planes, nextPosition);
+                    }
                     // check the color, may need to go to landing arrow 到达最终长箭头出口
                     //蓝色较为特殊单独讨论
                     if (color == 0 && nextPosition >= 56 && position <= 56) {
                         int excess = nextPosition - 56;
                         nextPosition = 56 + excess * 4;
-                        if(planeHashSet.contains(nextPosition)){
-                            for (Plane plane : planes) {
-                                if (plane.getPosition() == nextPosition && plane.getColor() != color) {
-                                    plane.setPosition(plane.getColor());
-                                }
+                        if (!(nextPosition == 56)) {
+                            if (planeHashSet.contains(nextPosition)) {
+                                sentBack(planes, nextPosition);
+                            }
+                        } else {
+                            if (planeHashSet.contains(nextPosition)) {
+                                sentBack(planes, nextPosition);
                             }
                         }
                     }//黄绿蓝general条件
@@ -122,12 +115,12 @@ public class Plane {
                         int excess = nextPosition - ((color - 1) * 13 + 17); //nextPosition - excess position
                         if(!((color == 1 && nextPosition == 17) || (color == 2 && nextPosition == 30) ||(color == 3 && nextPosition == 43))) {
                             nextPosition = 56 + color + excess * 4;
-                            if(planeHashSet.contains(nextPosition)){
-                                for (Plane plane : planes) {
-                                    if (plane.getPosition() == nextPosition && plane.getColor() != color) {
-                                        plane.setPosition(plane.getColor());
-                                    }
-                                }
+                            if (planeHashSet.contains(nextPosition)) {
+                                sentBack(planes, nextPosition);
+                            }
+                        } else {
+                            if (planeHashSet.contains(nextPosition)) {
+                                sentBack(planes, nextPosition);
                             }
                         }
                     } else {
@@ -136,54 +129,31 @@ public class Plane {
                         if ((nextPosition % 4 == color)) {
                             if (nextPosition > 59) {
                                 nextPosition = nextPosition % 59 + 7;
-                                if(planeHashSet.contains(nextPosition)){
-                                    for (Plane plane : planes) {
-                                        if (plane.getPosition() == nextPosition && plane.getColor() != color) {
-                                            plane.setPosition(plane.getColor());
-                                        }
-                                    }
-                                }
                             }
                             if ((color == 0 && nextPosition == 24) ||
                                     (color == 1 && nextPosition == 37) ||
                                     (color == 2 && nextPosition == 50) ||
                                     (color == 3 && nextPosition == 11)) {
                                 nextPosition += 12;
-                                if(planeHashSet.contains(nextPosition)){
-                                    for (Plane plane : planes) {
-                                        if (plane.getPosition() == nextPosition && plane.getColor() != color) {
-                                            plane.setPosition(plane.getColor());
-                                        }
-                                    }
+                                if (planeHashSet.contains(nextPosition)) {
+                                    sentBack(planes, nextPosition);
                                 }
                             }
                             if (nextPosition > 59) {
                                 nextPosition = nextPosition % 59 + 7;
-                                if(planeHashSet.contains(nextPosition)){
-                                    for (Plane plane : planes) {
-                                        if (plane.getPosition() == nextPosition && plane.getColor() != color) {
-                                            plane.setPosition(plane.getColor());
-                                        }
-                                    }
+                                if (planeHashSet.contains(nextPosition)) {
+                                    sentBack(planes, nextPosition);
                                 }
                             }
                             nextPosition += 4;
-                            if(planeHashSet.contains(nextPosition)){
-                                for (Plane plane : planes) {
-                                    if (plane.getPosition() == nextPosition && plane.getColor() != color) {
-                                        plane.setPosition(plane.getColor());
-                                    }
-                                }
+                            if (planeHashSet.contains(nextPosition)) {
+                                sentBack(planes, nextPosition);
                             }
                             jumped = true;
                             if (nextPosition > 59) {
                                 nextPosition = nextPosition % 59 + 7;
-                                if(planeHashSet.contains(nextPosition)){
-                                    for (Plane plane : planes) {
-                                        if (plane.getPosition() == nextPosition && plane.getColor() != color) {
-                                            plane.setPosition(plane.getColor());
-                                        }
-                                    }
+                                if (planeHashSet.contains(nextPosition)) {
+                                    sentBack(planes, nextPosition);
                                 }
                             }
                             if ((color == 0 && nextPosition == 24) ||
@@ -191,58 +161,35 @@ public class Plane {
                                     (color == 2 && nextPosition == 50) ||
                                     (color == 3 && nextPosition == 11)) {
                                 nextPosition += 12;
-                                if(planeHashSet.contains(nextPosition)){
-                                    for (Plane plane : planes) {
-                                        if (plane.getPosition() == nextPosition && plane.getColor() != color) {
-                                            plane.setPosition(plane.getColor());
-                                        }
-                                    }
+                                if (planeHashSet.contains(nextPosition)) {
+                                    sentBack(planes, nextPosition);
                                 }
                             }
                         }
                         if (nextPosition > 59) {
                             nextPosition = nextPosition % 59 + 7;
-                            if(planeHashSet.contains(nextPosition)){
-                                for (Plane plane : planes) {
-                                    if (plane.getPosition() == nextPosition && plane.getColor() != color) {
-                                        plane.setPosition(plane.getColor());
-                                    }
-                                }
+                            if (planeHashSet.contains(nextPosition)) {
+                                sentBack(planes, nextPosition);
                             }
                         }
                         if ((!jumped) && (nextPosition % 4 == color)) {
                             nextPosition += 4;
-                            jumped = true;
-                            if(planeHashSet.contains(nextPosition)){
-                                for (Plane plane : planes) {
-                                    if (plane.getPosition() == nextPosition && plane.getColor() != color) {
-                                        plane.setPosition(plane.getColor());
-                                    }
-                                }
+                            if (planeHashSet.contains(nextPosition)) {
+                                sentBack(planes, nextPosition);
                             }
+                            jumped = true;
                         }
 
                         //ensure not over the index
                         if (nextPosition > 59) {
                             nextPosition = nextPosition % 59 + 7;
                             if (planeHashSet.contains(nextPosition)) {
-                                for (Plane plane : planes) {
-                                    if (plane.getPosition() == nextPosition && plane.getColor() != color) {
-                                        plane.setPosition(plane.getColor());
-                                    }
-                                }
+                                sentBack(planes, nextPosition);
                             }
                         }
                     }
                 } else if (position < 84) { //此时都已经进入landing的长箭头 index 在60和84之间
                     nextPosition = position + (num * 4);
-                    if(planeHashSet.contains(nextPosition)){
-                        for (Plane plane : planes) {
-                            if (plane.getPosition() == nextPosition && plane.getColor() != color) {
-                                plane.setPosition(plane.getColor());
-                            }
-                        }
-                    }
                     //结束条件->送入机库
                     if ((color == 0 && nextPosition == 80) ||
                             (color == 1 && nextPosition == 81) ||
@@ -250,32 +197,47 @@ public class Plane {
                             (color == 3 && nextPosition == 83)) {
 //                    nextPosition += 4; //标志结束
 //                    end = true; // 这架飞机结束了
+                        if (planeHashSet.contains(nextPosition)) {
+                            sentBack(planes, nextPosition);
+                        }
                         // 超出了需要退回
                     } else if ((color == 0 && nextPosition > 80) ||
                             (color == 1 && nextPosition > 81) ||
                             (color == 2 && nextPosition > 82) ||
                             (color == 3 && nextPosition > 83)) {
                         nextPosition -= 2 * (nextPosition - (color + 80)); //减去超出部分（超出部分只有可能是4的倍数）
-                        if(planeHashSet.contains(nextPosition)){
-                            for (Plane plane : planes) {
-                                if (plane.getPosition() == nextPosition && plane.getColor() != color) {
-                                    plane.setPosition(plane.getColor());
-                                }
+                        if (nextPosition >= 68 && nextPosition <= 71) {
+                            if (planeHashSet.contains(nextPosition)) {
+                                sentBack(planes, nextPosition);
+                            }
+                        } else {
+                            if (planeHashSet.contains(nextPosition)) {
+                                sentBack(planes, nextPosition);
                             }
                         }
-
-                    }
-                    if (nextPosition >= 80) {
-                        end = true;
+                    } else {
+                        if (nextPosition >= 68 && nextPosition <= 71) {
+                            if (planeHashSet.contains(nextPosition)) {
+                                sentBack(planes, nextPosition);
+                            }
+                        } else {
+                            if (planeHashSet.contains(nextPosition)) {
+                                sentBack(planes, nextPosition);
+                            }
+                        }
                     }
                     //正常触及到下一个位置-游戏继续
                 } else {
                     throw new RuntimeException();
                 }
+
                 this.setPosition(nextPosition);
+            } else {
+                this.setPosition(position);
             }
         }
     }
+
 
     //Zexin Lin: last Update @ 11/10 11PM : Fly from one side of dot line to the other side
     /**
@@ -431,9 +393,4 @@ public class Plane {
             return temp;
         }
     }
-//    private static void sentBack(List<Plane> planes) {
-//        for (int i = 0; i < planes.size(); i++) {
-//            if (planes.get(i).getPosition())
-//        }
-//    }
 }

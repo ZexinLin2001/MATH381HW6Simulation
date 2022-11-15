@@ -136,11 +136,13 @@ public class PlaneNextPositionTest {
         Plane p1 = new Plane(0, 48, 1);
         Plane p2 = new Plane(0, 57, 2);
         Plane p3 = new Plane(0, 14, 3);
+        Plane p4 = new Plane(1, 57,1);
 
         res.add(12 == p0.canMoveTo(1, planes)[0]);
         res.add(53 == p1.canMoveTo(1, planes)[0]);
         res.add(10 == p2.canMoveTo(1, planes)[0]);
         res.add(19 == p3.canMoveTo(1, planes)[0]);
+        res.add(59 == p4.canMoveTo(2, planes)[0]);
 
 
         System.out.println(res);

@@ -92,12 +92,13 @@ public class Player {
                 }
             }
 
-            planes.get(input).move(possible_moves.get(input));
+            planes.get(input).move(num, planes);
         }
         return -1;
     }
 
     private int s1Move(int num, List<Plane> planes) {
+        System.out.println(name + " rolled a " + num);
         Map<Integer, Integer> possible_moves = new HashMap<>();
         Map<Integer, Integer> indexToPlane = new HashMap<>();
         Random r = new Random();
@@ -116,12 +117,13 @@ public class Player {
         if (possible_moves.size() > 0) {
             int input = r.nextInt(possible_moves.size());
             this.planes.get(indexToPlane.get(input));
-            this.planes.get(indexToPlane.get(input)).move(possible_moves.get(input));
+            this.planes.get(indexToPlane.get(input)).move(num, planes);
         }
         return -1;
     }
 
     private int s2Move(int num, List<Plane> planes) {
+        System.out.println(name + " rolled a " + num);
         Map<Integer, Integer> possible_moves = new HashMap<>();
         Map<Integer, Integer> indexToPlane = new HashMap<>();
         Random r = new Random();
@@ -142,17 +144,18 @@ public class Player {
             temp.add(4); temp.add(5); temp.add(6); temp.add(7);
             for (int key : possible_moves.keySet()) {
                 if (temp.contains(possible_moves.get(key))) {
-                    this.planes.get(indexToPlane.get(key)).move(possible_moves.get(key));
+                    this.planes.get(indexToPlane.get(key)).move(num, planes);
                     return -1;
                 }
             }
             int input = r.nextInt(possible_moves.size());
-            this.planes.get(indexToPlane.get(input)).move(possible_moves.get(input));
+            this.planes.get(indexToPlane.get(input)).move(num, planes);
         }
         return -1;
     }
 
     private int s3Move(int num, List<Plane> planes) {
+        System.out.println(name + " rolled a " + num);
         Map<Integer, Integer> possible_moves = new HashMap<>();
         Map<Integer, Integer> indexToPlane = new HashMap<>();
         Map<Integer, Integer> move_scores = new HashMap<>();
@@ -179,7 +182,7 @@ public class Player {
             }
             for (int key : possible_moves.keySet()) {
                 if (move_scores.get(key) == max_score) {
-                    this.planes.get(indexToPlane.get(key)).move(possible_moves.get(key));
+                    this.planes.get(indexToPlane.get(key)).move(num, planes);
                     return -1;
                 }
             }

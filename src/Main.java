@@ -2,8 +2,8 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        single_10M_sim();
-//        play();
+        //single_10M_sim();
+        play();
     }
 
     private static void play() {

@@ -2,8 +2,8 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-//        single_1M_sim();
-        play();
+        single_10M_sim();
+//        play();
     }
 
     private static void play() {
@@ -11,11 +11,11 @@ public class Main {
         g.run();
     }
 
-    private static void single_1M_sim() {
+    private static void single_10M_sim() {
         try {
             FileWriter myWriter = new FileWriter("data/single-s3.csv");
             long startTime = System.nanoTime();
-            for (int i = 0; i < 1000000; i++) {
+            for (int i = 0; i < 10000000; i++) {
                 Game g = new Game(1, false);
                 myWriter.write(g.run() + "\n");
             }

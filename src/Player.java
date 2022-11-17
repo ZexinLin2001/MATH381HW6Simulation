@@ -98,7 +98,7 @@ public class Player {
     }
 
     private int s1Move(int num, List<Plane> planes) {
-        System.out.println(name + " rolled a " + num);
+//        System.out.println(name + " rolled a " + num);
         Map<Integer, Integer> possible_moves = new HashMap<>();
         Map<Integer, Integer> indexToPlane = new HashMap<>();
         Random r = new Random();
@@ -123,7 +123,7 @@ public class Player {
     }
 
     private int s2Move(int num, List<Plane> planes) {
-        System.out.println(name + " rolled a " + num);
+//        System.out.println(name + " rolled a " + num);
         Map<Integer, Integer> possible_moves = new HashMap<>();
         Map<Integer, Integer> indexToPlane = new HashMap<>();
         Random r = new Random();
@@ -155,7 +155,7 @@ public class Player {
     }
 
     private int s3Move(int num, List<Plane> planes) {
-        System.out.println(name + " rolled a " + num);
+//        System.out.println(name + " rolled a " + num);
         Map<Integer, Integer> possible_moves = new HashMap<>();
         Map<Integer, Integer> indexToPlane = new HashMap<>();
         Map<Integer, Integer> move_scores = new HashMap<>();

@@ -24,8 +24,6 @@ public class Game {
         if (playerCount <= 0 || playerCount > 4) {
             throw new IllegalArgumentException("Illegal number of players");
         }
-        char[] colors = new char[]{'B', 'Y', 'G', 'R'};
-
         // init players
         // P0 will always be the one we study
         this.players = new ArrayList<>();
@@ -37,9 +35,9 @@ public class Game {
             }
             this.planes.addAll(planes);
             if (humanPlaying && i == 0) {
-                players.add(new Player("YOU" + i, colors[i], 0, planes));
+                players.add(new Player("YOU" + i, i, 2, planes));
             } else {
-                players.add(new Player("P" + i, colors[i], 3, planes));
+                players.add(new Player("P" + i, i, 1, planes));
             }
         }
     }
@@ -48,9 +46,7 @@ public class Game {
         // decide order of players
         Collections.shuffle(players);
         Queue<Player> nextPLayerQueue = new LinkedList<>(players);
-        int count = 0;
         while (true) {
-            count++;
             Player p = nextPLayerQueue.remove();
             nextPLayerQueue.add(p);
 
@@ -58,16 +54,15 @@ public class Game {
             while (num == 6) {
                 p.move(num, planes);
                 if (p.hasWon()) {
-                    break;
+                    return p.getColor();
                 }
                 num = roll();
             }
             p.move(num, planes);
             if (p.hasWon()) {
-                break;
+                return p.getColor();
             }
         }
-        return count;
     }
 
     private int roll() {

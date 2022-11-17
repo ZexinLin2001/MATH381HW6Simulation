@@ -7,12 +7,16 @@ public class Plane {
     private int position;
     private int color;
     private boolean end;
+    private int priorityMoveFromBase;
+    private int priorityAttack;
 
-    public Plane(int index, int position, int color) {
+    public Plane(int index, int position, int color, int priorityMoveFromBase, int priorityAttack) {
         this.index = index;
         this.position = position;
         this.color = color;
         this.end = false;
+        this.priorityMoveFromBase = priorityMoveFromBase;
+        this.priorityAttack = priorityAttack;
     }
 
     public int getIndex() {
@@ -42,7 +46,7 @@ public class Plane {
             }
         }
     }
-    public void move (int num, List<Plane> planes) {
+    public void move(int num, List<Plane> planes) {
         if (position + 4 * num == 80 + color) {
             this.position = position + 8;
             end = true;
@@ -252,7 +256,7 @@ public class Plane {
             if (position < 4) {
                 if (num == 6) {
                     nextPosition = position + 4;
-                    score = 11;
+                    score = this.priorityMoveFromBase;
                 } else { //不需要出动飞机 return：-1
                     nextPosition = -1;
                     score = 0;
@@ -384,6 +388,17 @@ public class Plane {
                 //正常触及到下一个位置-游戏继续
             } else {
                 throw new RuntimeException();
+            }
+
+            // prioritize attacking
+            HashSet<Integer> planeHashSet = new HashSet<>();
+            for (Plane plane : planes) {
+                if (plane.color != this.color) {
+                    planeHashSet.add(plane.getPosition());
+                }
+            }
+            if (planeHashSet.contains(nextPosition)) {
+                score = this.priorityAttack;
             }
 
             int[] temp = {nextPosition, score};

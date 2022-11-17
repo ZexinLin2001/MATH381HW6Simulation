@@ -20,7 +20,7 @@ public class Game {
     private List<Player> players;
     private List<Plane> planes;
 
-    public Game(int playerCount, boolean humanPlaying) {
+    public Game(int playerCount, boolean humanPlaying, int s0, int s1, int priorityMoveFromBase0, int priorityMoveFromBase1, int priorityAttack0, int priorityAttack1) {
         if (playerCount <= 0 || playerCount > 4) {
             throw new IllegalArgumentException("Illegal number of players");
         }
@@ -30,15 +30,18 @@ public class Game {
         this.planes = new ArrayList<>();
         for (int i = 0; i < playerCount; i++) {
             List<Plane> planes = new ArrayList<>();
-            for (int j = 0; j < 4; j++) {
-                planes.add(new Plane(j, i, i));
+            if (humanPlaying && i == 0) {
+                players.add(new Player("YOU" + i, i, s0, planes));
+                for (int j = 0; j < 4; j++) {
+                    planes.add(new Plane(j, i, i, priorityMoveFromBase0, priorityAttack0));
+                }
+            } else {
+                players.add(new Player("P" + i, i, s1, planes));
+                for (int j = 0; j < 4; j++) {
+                    planes.add(new Plane(j, i, i, priorityMoveFromBase1, priorityAttack1));
+                }
             }
             this.planes.addAll(planes);
-            if (humanPlaying && i == 0) {
-                players.add(new Player("YOU" + i, i, 2, planes));
-            } else {
-                players.add(new Player("P" + i, i, 1, planes));
-            }
         }
     }
 

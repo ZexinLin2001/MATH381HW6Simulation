@@ -32,19 +32,10 @@ public class Player {
     }
 
     public int move(int num, List<Plane> planes) {
-        switch (strategy) {
-            case 0:
-                s0Move(num, planes);
-                break;
-            case 1:
-                s1Move(num, planes);
-                break;
-            case 2:
-                s2Move(num, planes);
-                break;
-            case 3:
-                s3Move(num, planes);
-                break;
+        if (this.strategy == 1) {
+            s1Move(num, planes);
+        } else {
+            s3Move(num, planes);
         }
 
         boolean won = true;
@@ -122,37 +113,6 @@ public class Player {
         return -1;
     }
 
-    private int s2Move(int num, List<Plane> planes) {
-//        System.out.println(name + " rolled a " + num);
-        Map<Integer, Integer> possible_moves = new HashMap<>();
-        Map<Integer, Integer> indexToPlane = new HashMap<>();
-        Random r = new Random();
-        int j = 0;
-        for (int i = 0; i < this.planes.size(); i++) {
-            if (!this.planes.get(i).isEnd()){
-                int loc = this.planes.get(i).canMoveTo(num, planes)[0];
-                if (loc >= 0) {
-                    possible_moves.put(j, loc);
-                    indexToPlane.put(j, i);
-                    j++;
-                }
-            }
-        }
-
-        if (possible_moves.size() > 0) {
-            Set<Integer> temp = new HashSet<>();
-            temp.add(4); temp.add(5); temp.add(6); temp.add(7);
-            for (int key : possible_moves.keySet()) {
-                if (temp.contains(possible_moves.get(key))) {
-                    this.planes.get(indexToPlane.get(key)).move(num, planes);
-                    return -1;
-                }
-            }
-            int input = r.nextInt(possible_moves.size());
-            this.planes.get(indexToPlane.get(input)).move(num, planes);
-        }
-        return -1;
-    }
 
     private int s3Move(int num, List<Plane> planes) {
 //        System.out.println(name + " rolled a " + num);

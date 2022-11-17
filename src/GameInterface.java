@@ -24,14 +24,14 @@ public class GameInterface {
     };
 
     public static void main(String[] args) {
-        Game g = new Game(4, false);
-        List<Player> players = g.getPlayers();
-        List<Plane> planes = new ArrayList<>();
-        for (Player p : players) {
-            planes.addAll(p.getPlanes());
-        }
-
-        System.out.println(printBoard(planes));
+//        Game g = new Game(4, false);
+//        List<Player> players = g.getPlayers();
+//        List<Plane> planes = new ArrayList<>();
+//        for (Player p : players) {
+//            planes.addAll(p.getPlanes());
+//        }
+//
+//        System.out.println(printBoard(planes));
     }
 
     public static String printBoard(List<Plane> planes) {

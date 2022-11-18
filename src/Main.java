@@ -3,7 +3,7 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) throws IOException {
 //        sim();
-        simMultithreading();
+//        simMultithreading();
     }
 
     private static void simMultithreading() {
@@ -63,9 +63,9 @@ class MultithreadingSim implements Runnable {
 
             try {
                 for (int j = 1; j < 7; j++) {
-                    FileWriter myWriter = new FileWriter("data/double-s" + i + "s" + j + ".csv");
+                    FileWriter myWriter = new FileWriter("data/double30M-s" + i + "s" + j + ".csv");
                     long startTime = System.nanoTime();
-                    for (int k = 0; k < 10000000; k++) {
+                    for (int k = 0; k < 30000000; k++) {
                         Game g = new Game(2, true, strategies[i - 1], strategies[j - 1],
                                 priorityMoveFromBases[i - 1], priorityMoveFromBases[j - 1], priorityAttacks[i - 1], priorityAttacks[j - 1]);
                         myWriter.write(g.run() + "\n");

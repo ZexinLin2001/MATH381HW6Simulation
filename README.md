@@ -1,5 +1,5 @@
-# MATH381HW6Simulation
-This is homework 6 repository for MATH381 Discrete Mathematical Modeling
+# Analysis of Different Strategies in the Airplane Chess Game
+This is Discrete Mathematical Modeling Problem based on Monte Carol Method and CLT.
 
 Collaborator: Minhao Zhang, Zexin Lin
 
